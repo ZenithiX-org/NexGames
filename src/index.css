@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,400;0,700;0,800;0,900;1,900&family=Geist:wght@400;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Geist", "Outfit", ui-sans-serif, system-ui;
+  --font-display: "Anybody", "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* Custom GlitchHub Color Palette Configurations */
+  --color-surface-dim: #131313;
+  --color-outline-variant: #444933;
+  --color-primary-fixed: #c3f400;
+  --color-on-primary-fixed: #161e00;
+  --color-on-surface-variant: #c4c9ac;
+  --color-surface-bright: #3a3939;
+  --color-[#c3f400]: #c3f400;
+  --color-primary-container: #c3f400;
+  --color-on-surface: #e5e2e1;
+  --color-outline: #8e9379;
+  --color-secondary-fixed-dim: #ffb59e;
+  --color-error: #ffb4ab;
+  --color-secondary-fixed: #ffdbd0;
+  --color-on-primary: #283500;
+  --color-surface-tint: #abd600;
+  --color-primary-container: #c3f400;
+  --color-on-surface: #e5e2e1;
+  --color-error-container: #93000a;
+  --color-outline: #8e9379;
+  --color-secondary: #ffb59e;
+  --color-surface-container-low: #1c1b1b;
+  --color-secondary-container: #ff571a;
+  --color-surface-container-high: #2a2a2a;
+  --color-surface-container-lowest: #0e0e0e;
+  --color-surface-container-highest: #353534;
+  --color-surface-container: #201f1f;
+  --color-background: #0f0f0f;
+  --color-foreground: #e5e2e1;
+}
+
+@layer utilities {
+  /* Glowing elements and professional thematic visuals */
+  .neon-text-cyan {
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.45), 0 0 20px rgba(6, 182, 212, 0.2);
+  }
+  .neon-text-indigo {
+    text-shadow: 0 0 8px rgba(195, 244, 0, 0.45), 0 0 20px rgba(195, 244, 0, 0.2);
+  }
+  .neon-text-green {
+    text-shadow: 0 0 8px rgba(195, 244, 0, 0.45), 0 0 20px rgba(195, 244, 0, 0.2);
+  }
+
+  .neo-shadow {
+    box-shadow: 4px 4px 0px 0px #c3f400;
+  }
+  .neo-shadow-secondary {
+    box-shadow: 4px 4px 0px 0px #ff571a;
+  }
+  
+  /* 21st.dev signature components styling */
+  .glass-card {
+    background: rgba(13, 15, 20, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px -5px rgba(16, 185, 129, 0.15);
+  }
+
+  .glass-card-subtle {
+    background: rgba(18, 21, 28, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-pill {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glow-border {
+    position: relative;
+  }
+  .glow-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.03));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  .glow-emerald {
+    box-shadow: 0 0 25px -3px rgba(16, 185, 129, 0.35);
+  }
+  .glow-lime {
+    box-shadow: 0 0 25px -3px rgba(195, 244, 0, 0.35);
+  }
+
+  .hover-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.7), 0 0 20px -3px rgba(195, 244, 0, 0.2);
+  }
+  .neo-brutalist-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(195, 244, 0, 0.5);
+  }
+  .neo-brutalist-button:hover {
+    transform: translateY(-1px);
+  }
+  .neo-brutalist-button:active {
+    transform: translateY(0);
+  }
+
+  .grit-bg {
+    background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+    background-repeat: repeat;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(10, 12, 16, 0.6);
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 9999px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c3f400;
+  }
+}
+
+/* Base normalization for high-end professional appearance */
+body {
+  background-color: #0f0f0f;
+  color: #e5e2e1;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.9; }
+  15% { opacity: 0.95; }
+  20% { opacity: 0.98; }
+  100% { opacity: 1; }
+}
+
+.glitch-flicker {
+  animation: flicker 2s infinite linear alternate-reverse;
+}
+
+/* Custom interactive ranges */
+input[type="range"] {
+  accent-color: #c3f400;
+}
+
+/* Ensure the game stage element expands to take 100% of physical screen space in native fullscreen mode */
+#game-stage-screen:fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #030303 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
+}
+
+#game-stage-screen:fullscreen iframe,
+#game-stage-screen:fullscreen #loaded-html-game,
+#game-stage-screen:fullscreen #html-loaded-block {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#game-stage-screen:fullscreen canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  object-fit: contain !important;
+  border: none !important;
+}
+
+#game-stage-screen:-webkit-full-screen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #030303 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
+}
+
+#game-stage-screen:-webkit-full-screen iframe,
+#game-stage-screen:-webkit-full-screen #loaded-html-game,
+#game-stage-screen:-webkit-full-screen #html-loaded-block {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#game-stage-screen:-webkit-full-screen canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  object-fit: contain !important;
+  border: none !important;
+}
+
+#game-stage-screen:-ms-fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background-color: #030303 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 99999 !important;
+}
+
+#game-stage-screen:-ms-fullscreen iframe,
+#game-stage-screen:-ms-fullscreen #loaded-html-game,
+#game-stage-screen:-ms-fullscreen #html-loaded-block {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+#game-stage-screen:-ms-fullscreen canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  object-fit: contain !important;
+  border: none !important;
+}
+

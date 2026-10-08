@@ -1,0 +1,6 @@
+{
+  "name": "Nexus Hub",
+  "description": "Next-generation social gaming universe inspired by Roblox, Steam, and Discord. Play, create, and build communities with an integrated AI game studio, live community servers, and creator profiles.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

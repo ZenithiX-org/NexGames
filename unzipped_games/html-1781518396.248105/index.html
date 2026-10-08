@@ -1,0 +1,177 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Global Trucker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+
+<body>
+    <div id="game-container">
+        <div id="map" style="width: 100%; height: 100vh;"></div>
+
+        <!-- Compact top HUD bar -->
+        <div id="hud-bar">
+            <div class="hud-section" id="hud-mission">
+                <div class="hud-icon">📦</div>
+                <div class="hud-text">
+                    <span id="destination-details" class="hud-primary">No Mission</span>
+                    <span id="cargo-details" class="hud-secondary"></span>
+                </div>
+            </div>
+            <div class="hud-divider"></div>
+            <div class="hud-section" id="hud-money">
+                <div class="hud-icon">💰</div>
+                <span id="money-display" class="hud-primary">$5,000</span>
+            </div>
+            <div class="hud-divider"></div>
+            <div class="hud-section" id="hud-level">
+                <div class="hud-icon">⭐</div>
+                <span class="hud-primary">Lv <span id="level-number">1</span></span>
+                <div id="xp-bar-container">
+                    <div id="xp-bar"></div>
+                </div>
+            </div>
+            <div class="hud-divider"></div>
+            <div class="hud-section" id="hud-leaderboard">
+                <div class="hud-icon">🏆</div>
+                <div id="leaderboard-list">
+                    <!-- Top players will be injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Time display -->
+        <div id="time-display">☀️ 12:00 PM</div>
+
+        <!-- Distance remaining (floating over map) -->
+        <div id="distance-remaining"></div>
+
+        <!-- Nitro button -->
+        <div id="nitro-btn-hint">SHIFT</div>
+        <div id="nitro-btn">🔥</div>
+
+        <!-- Speedometer & Cruise Control -->
+        <div id="speedometer-container">
+            <div id="cruise-control-indicator" class="hidden">CRUISE</div>
+            <div id="speed-display">
+                <span id="current-speed-val">0</span>
+                <span class="speed-unit">KM/H</span>
+            </div>
+            <div id="gear-display">GEAR <span id="current-gear-val">1</span></div>
+            <div id="rpm-needle-container">
+                <div id="rpm-needle"></div>
+            </div>
+        </div>
+
+        <!-- Speed lines overlay for nitro -->
+        <div id="speed-lines"></div>
+
+        <!-- Notification container -->
+        <div id="notification-container"></div>
+
+        <!-- Custom Modal -->
+        <div id="custom-modal" class="hidden">
+            <div class="modal-content">
+                <h2 id="modal-title">Title</h2>
+                <p id="modal-message">Message</p>
+                <div id="modal-buttons"></div>
+            </div>
+        </div>
+
+        <!-- Side drawer toggle buttons -->
+        <div id="drawer-toggles">
+            <button id="toggle-panel-btn" class="drawer-toggle-btn" title="Stats & Settings">☰</button>
+            <button id="toggle-shop-btn" class="drawer-toggle-btn" title="Vehicle Hangar">🚗</button>
+        </div>
+
+        <!-- Side panel (slides in from left) -->
+        <div id="ui-panel" class="drawer-hidden">
+            <div class="drawer-header">
+                <h3>Global Trucker</h3>
+                <button class="drawer-close" id="close-panel-btn">&times;</button>
+            </div>
+            <div class="panel-content">
+                <div id="company-status"></div>
+                <div id="radio-info">
+                    <h4 id="radio-toggle-header">📻 Local Radio <span id="radio-minimize">-</span></h4>
+                    <div class="radio-content">
+                        <div id="current-station">📻 Radio Off</div>
+                        <div id="radio-country-display">Country: <span id="radio-country">USA</span></div>
+                        <div id="radio-controls">
+                            <label>
+                                <input type="checkbox" id="radio-toggle"> Enable Radio
+                            </label>
+                            <div class="volume-control">
+                                <label>Volume:</label>
+                                <input type="range" id="radio-volume" min="0" max="1" step="0.1" value="0.5">
+                            </div>
+                        </div>
+                        <div id="radio-stations"></div>
+                    </div>
+                </div>
+                <div id="controls-settings">
+                    <label for="joystick-toggle">
+                        <input type="checkbox" id="joystick-toggle"> Enable Joystick
+                    </label>
+                    <button id="toggle-chat-btn">💬 Toggle Chat</button>
+                    <button id="achievements-btn">🏆 Achievements</button>
+                    <button id="reset-progress-btn">Reset Progress</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vehicle shop (slides in from right) -->
+        <div id="vehicle-shop" class="drawer-hidden"></div>
+
+        <!-- Fake Multiplayer Chat -->
+        <div id="chat-container">
+            <div id="chat-header">
+                <span>Multiplayer Chat</span>
+                <button id="close-chat">&times;</button>
+            </div>
+            <div id="chat-messages"></div>
+            <div id="chat-input-wrapper">
+                <input type="text" id="chat-input" placeholder="Type a message... (Enter)">
+            </div>
+        </div>
+
+        <div id="joystick-container"></div>
+    </div>
+
+    <div id="achievements-panel" class="hidden">
+        <div id="achievements-header">
+            <h2>Achievements</h2>
+            <button id="close-achievements-btn">&times;</button>
+        </div>
+        <div id="achievements-list"></div>
+    </div>
+
+    <div id="workshop-panel" class="hidden">
+        <div id="workshop-header">
+            <h2>🔧 Vehicle Workshop</h2>
+            <button id="close-workshop-btn">&times;</button>
+        </div>
+        <div id="workshop-content">
+            <p>Upgrade your vehicle to improve performance</p>
+            <div id="workshop-upgrades"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/nipplejs/dist/nipplejs.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "leaflet": "https://unpkg.com/leaflet@1.7.1/dist/leaflet-src.esm.js"
+        }
+    }
+    </script>
+    <script src="game.js" type="module"></script>
+</body>
+
+</html>
